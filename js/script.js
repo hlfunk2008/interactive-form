@@ -1,61 +1,62 @@
-let labelName = document.querySelector('label[for="name"]');
-let jobSelect = document.querySelector('#title');
-let otherJob = document.querySelector('input[name="other-job-role"]');
+let labelInput = document.querySelector('label[for="name"]'); // Label for name input + span
+let jobInput = document.querySelector('#title'); // The selection for job input
+let otherJob = document.querySelector('input[name="other-job-role"]'); // Input option for the Other Job Role
 
-let colorDiv = document.querySelector('div[id="shirt-colors"]');
-let colorSelect = document.querySelector('#color');
-let designLabel = document.querySelector('select[id="design"]')
+let colorContainer = document.querySelector('div[id="shirt-colors"]'); // Shirt info > Colors container
+let colorInput = document.querySelector('#color'); // Color select input
+let designInput = document.querySelector('select[id="design"]'); // Design select input
 
-let activitiesField = document.querySelector('#activities')
-let activityCost = document.querySelector('#activities-cost')
-let activitiesBox = document.querySelector("#activities-box");
+let activitiesField = document.querySelector('#activities'); // Activities fieldset includes cost
+let costContainer = document.querySelector('#activities-cost'); // Cost container
+let activitiesContainer = document.querySelector("#activities-box"); // Activities div
+
 let totalCost = 0;
 
-let paymentSelect = document.querySelector('select[id="payment"]')
-let divPayPal = document.querySelector('#paypal');
-let divBitcoin = document.querySelector('#bitcoin');
+let paymentInput = document.querySelector('select[id="payment"]'); // Payment input select
+let divPayPal = document.querySelector('#paypal'); // paypal info box
+let divBitcoin = document.querySelector('#bitcoin'); // bitcoin info box
 
-let form = document.querySelector('form');
-let userName = document.querySelector('input[name="user-name"]');
-let nameValid = document.querySelector('#name-hint')
-let userEmail = document.querySelector('input[name="user-email"]')
-let emailValid = document.querySelector('#email-hint')
+let form = document.querySelector('form'); // entire form selection
+let nameInput = document.querySelector('input[name="user-name"]'); // nameInput input
+let nameError = document.querySelector('#name-hint'); // Name error message
+let emailInput = document.querySelector('input[name="user-email"]'); // Email input
+let emailError = document.querySelector('#email-hint'); // Email error message
 
-let creditNum = document.querySelector('input[id="cc-num"]')
-let zipNum = document.querySelector('input[id="zip"]')
-let cvvNum = document.querySelector('input[id="cvv"]')
-let creditValid = document.querySelector('#cc-hint')
-let zipValid = document.querySelector('#zip-hint')
-let cvvValid = document.querySelector('#cvv-hint')
-let activitiesValid = document.querySelector('#activities-hint')
+let creditInput = document.querySelector('input[id="cc-num"]'); // Credit Card Number Input
+let zipInput = document.querySelector('input[id="zip"]'); // Zip Input
+let cvvInput = document.querySelector('input[id="cvv"]'); // CVV Input
+let creditError = document.querySelector('#cc-hint'); // Credit Card error message
+let zipError = document.querySelector('#zip-hint'); // Zip error message
+let cvvError = document.querySelector('#cvv-hint'); // CVV error message
+let activitiesError = document.querySelector('#activities-hint'); // Activities error message
 
-let activityInputs = Array.from(activitiesBox.querySelectorAll('input'));
-let activityBtns = activityInputs.forEach((btn) => {
-    console.log(btn.parentElement)
-})
 
-let regex = /^\w{1,}@\w{1,}\.(com|net)$/i
-let creditRegex = /^\d{13,16}$/
-let zipRegex = /^\d{5}$/
-let cvvRegex = /^\d{3}$/
+let activityInputs = Array.from(activitiesContainer.querySelectorAll('input')); // List of activity checkboxes in an array
+let activityBtns = activityInputs.forEach((btn) => { return; }); // list of literal checkboxes
 
-paymentSelect.value = "credit-card"
+let regex = /^\w{1,}@\w{1,}\.(com|net)$/i;
+let creditRegex = /^\d{13,16}$/;
+let zipRegex = /^\d{5}$/;
+let cvvRegex = /^\d{3}$/;
+
+paymentInput.value = "credit-card";
 
 otherJob.hidden = true;
-colorDiv.hidden = true;
+colorContainer.hidden = true;
 
 divBitcoin.hidden = true;
 divPayPal.hidden = true;
 
 
 window.onload = function () {
-    labelName.focus();
+    labelInput.focus();
 }
 
-jobSelect.addEventListener("change", (event) => {
+// 
+jobInput.addEventListener("change", (event) => {
     if (event.target.value === "other") {
         document.querySelector('option[hidden]').hidden = false;
-        otherJob.hidden = false
+        otherJob.hidden = false;
     } else {
         otherJob.hidden = true;
     }
@@ -63,9 +64,9 @@ jobSelect.addEventListener("change", (event) => {
 
 
 
-designLabel.addEventListener("change", (event) => {
-    colorDiv.hidden = false;
-    let arrOptions = Array.from(colorSelect.options);
+designInput.addEventListener("change", (event) => {
+    colorContainer.hidden = false;
+    let arrOptions = Array.from(colorInput.options);
     arrOptions.forEach(element => element.hidden = false);
 
     if (event.target.value === "js puns") {
@@ -77,7 +78,7 @@ designLabel.addEventListener("change", (event) => {
             }
         });
     } else if (event.target.value === "heart js") {
-        Array.from(colorSelect.options).forEach(element => {
+        Array.from(colorInput.options).forEach(element => {
             const val = element.value;
 
             if (val !== "tomato" && val !== "steelblue" && val !== "dimgrey") {
@@ -95,11 +96,11 @@ activitiesField.addEventListener("change", (event) => {
         totalCost = totalCost - cost;
     }
 
-    activityCost.textContent = `Total: $${totalCost}`
+    costContainer.textContent = `Total: $${totalCost}`
         
 })
 
-paymentSelect.addEventListener("change", (element) => {
+paymentInput.addEventListener("change", (element) => {
     if (element.target.value === "bitcoin") {
         divBitcoin.hidden = false;
         divPayPal.hidden = true;
@@ -112,40 +113,14 @@ paymentSelect.addEventListener("change", (element) => {
     }
 })
 
-// remove userName.addEventListener and userEmail.addEventListener.. put logic in form.addEventListener
-
-userName.addEventListener("change", () => {
-    if (userName.value.trim() === "") {
-        console.log("wrong")
-        nameValid.style.display = "block";
-        userName.classList.add("error-border")
-        userName.setAttribute("aria-invalid", "true")
-    }
-})
-
-userEmail.addEventListener("change", (event) => {
-    // if (userName.value.trim() === "") {
-    //     nameValid.style.display = "block";
-    //     userName.classList.add("error-border")
-    //     userName.setAttribute("aria-invalid", "true")
-    // }
-    if (regex.test(userEmail.value.trim())) {
-        console.log("coret")
-    } else {
-        console.log("wrog")
-        emailValid.style.display = "block";
-        userEmail.classList.add("error-border")
-        userEmail.setAttribute("aria-invalid", "true")
-    }
-
-})
 
 form.addEventListener("submit", (event) => {
     let isActivityChecked = activityInputs.some(checkbox => checkbox.checked);
-    let cardCheck = creditRegex.test(creditNum.value)
-    let zipCheck = zipRegex.test(zipNum.value);
-    let cvvCheck = cvvRegex.test(cvvNum.value);
-
+    let cardCheck = creditRegex.test(creditInput.value)
+    let zipCheck = zipRegex.test(zipInput.value);
+    let cvvCheck = cvvRegex.test(cvvInput.value);
+    let nameCheck = (nameInput.value.trim() !== "");
+    let emailCheck = regex.test(emailInput.value);
 
     function isValid(elemCheck, elemValid) {
         let parent = elemValid.parentElement;
@@ -155,7 +130,6 @@ form.addEventListener("submit", (event) => {
             elemValid.style.display = "block";
             parent.classList.remove("valid")
             parent.classList.add("not-valid")
-            console.log(`wrong ${elemValid}`);
         } else {
             parent.classList.remove("not-valid");
             parent.classList.add("valid")
@@ -163,10 +137,13 @@ form.addEventListener("submit", (event) => {
         }
     }
 
-    if (paymentSelect.value === "credit-card") {
-        isValid(cardCheck, creditValid);
-        isValid(zipCheck, zipValid);
-        isValid(cvvCheck, cvvValid)
+    isValid(nameCheck, nameError);
+    isValid(emailCheck, emailError);
+
+    if (paymentInput.value === "credit-card") {
+        isValid(cardCheck, creditError);
+        isValid(zipCheck, zipError);
+        isValid(cvvCheck, cvvError);
     }
 
     if (!isActivityChecked) {
@@ -174,14 +151,13 @@ form.addEventListener("submit", (event) => {
         activityInputs.forEach((btn) => { 
             btn.parentElement.classList.add("not-valid")
         });
-        activitiesValid.style.display = "block"
-        console.log("No activities Selected!")
+        activitiesError.style.display = "block"
     } else {
         activityInputs.forEach((btn) => { 
             btn.parentElement.classList.remove("not-valid")
             btn.parentElement.classList.add("valid")
         });
-        activitiesValid.style.display = "block"
+        activitiesError.style.display = "none"
     }
 })
 
