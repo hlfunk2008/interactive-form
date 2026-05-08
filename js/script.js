@@ -113,7 +113,6 @@ paymentInput.addEventListener("change", (element) => {
     }
 })
 
-
 form.addEventListener("submit", (event) => {
     let isActivityChecked = activityInputs.some(checkbox => checkbox.checked);
     let cardCheck = creditRegex.test(creditInput.value)
@@ -144,6 +143,16 @@ form.addEventListener("submit", (event) => {
         isValid(cardCheck, creditError);
         isValid(zipCheck, zipError);
         isValid(cvvCheck, cvvError);
+    } else {
+        creditError.parentElement.classList.remove("not-valid");
+        creditError.parentElement.classList.add("valid");
+        creditError.style.display = "none";
+        zipError.parentElement.classList.remove("not-valid");
+        zipError.parentElement.classList.add("valid");
+        zipError.style.display = "none";
+        cvvError.parentElement.classList.remove("not-valid");
+        cvvError.parentElement.classList.add("valid");
+        cvvError.style.display = "none";
     }
 
     if (!isActivityChecked) {
