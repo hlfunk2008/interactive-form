@@ -41,9 +41,9 @@ designInput.addEventListener('change', (event) => {
       const val = option.value;
 
       if (val !== "cornflowerblue" && val !== "darkslategrey" && val !== "gold") {
-          option.disabled = true;
+          option.hidden = true;
         } else {
-          option.disabled = false;
+          option.hidden = false;
         }
       if (val === "tomato" || val === "steelblue" || val === "dimgrey") {
         colorInput.value = "cornflowerblue";
@@ -55,9 +55,9 @@ designInput.addEventListener('change', (event) => {
       const val = option.value;
 
       if (val !== "tomato" && val !== "steelblue" && val !== "dimgrey") {
-        option.disabled = true;
+        option.hidden = true;
       } else {
-          option.disabled = false;
+          option.hidden = false;
        }
       if (val === "cornflowerblue" || val === "darkslategrey" || val === "gold") {
         colorInput.value = "tomato";
