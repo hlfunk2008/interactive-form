@@ -41,15 +41,26 @@ designInput.addEventListener('change', (event) => {
       const val = option.value;
 
       if (val !== "cornflowerblue" && val !== "darkslategrey" && val !== "gold") {
-          option.hidden = true;
+          option.disabled = true;
+        } else {
+          option.disabled = false;
         }
+      if (val === "tomato" || val === "steelblue" || val === "dimgrey") {
+        colorInput.value = "cornflowerblue";
+      }
     });
-  } else if (event.target.value === "heart js") {
+  } 
+  if (event.target.value === "heart js") {
     colorOptions.forEach(option => {
       const val = option.value;
 
       if (val !== "tomato" && val !== "steelblue" && val !== "dimgrey") {
-        option.hidden = true;
+        option.disabled = true;
+      } else {
+          option.disabled = false;
+       }
+      if (val === "cornflowerblue" || val === "darkslategrey" || val === "gold") {
+        colorInput.value = "tomato";
       }
     });
   }
@@ -190,6 +201,3 @@ activityInputs.forEach(btn => {
     event.target.parentElement.classList.remove('focus');
   });
 });
-
-
-
